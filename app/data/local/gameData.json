@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Moon",
+    "image": "moon.jpg",
+    "isPlanet":false
+  },
+  {
+    "name": "Earth",
+    "image": "earth.jpg",
+    "isPlanet":true
+  },
+  {
+    "name": "Jupiter",
+    "image": "jupiter.jpg",
+    "isPlanet":true
+  },
+  {
+    "name": "Titan",
+    "image": "titan.jpg",
+    "isPlanet":false
+  },
+  {
+    "name": "Mars",
+    "image": "mars.jpg",
+    "isPlanet":true
+  },
+  {
+    "name": "Saturn",
+    "image": "saturn.jpg",
+    "isPlanet":true
+  }
+]

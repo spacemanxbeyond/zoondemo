@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "zoondemo",
+    "description": "An empty new project",
+    "slug": "zoondemo",
+    "privacy": "public",
+    "sdkVersion": "22.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/icon.png",
+    "androidStatusBarColor": "#592fbf",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#592fbf"
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#592fbf"
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf", "mp4"]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
