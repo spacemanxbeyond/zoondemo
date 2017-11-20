@@ -1,13 +1,20 @@
-import {combineReducers, createStore} from "redux";
-import mainNavReducer from '../reducers/mainNavigatorReducer';
+import {combineReducers, createStore, applyMiddleware} from "redux";
+import createSagaMiddleware from 'redux-saga';
+import mainNavReducer from '../reducers/mainNavReducer';
 import gameReducer from '../reducers/gameReducer';
+import randomUsersDataReducer from '../reducers/randomUsersDataReducer';
+import rootSaga from '../sagas';
 
-console.log('********** Create Store');
+const sagaMiddleware = createSagaMiddleware();
+
 const appReducer = combineReducers({
     nav: mainNavReducer,
-    game:gameReducer,
+    game: gameReducer,
+    randomUsersData: randomUsersDataReducer,
 });
 
-const store = createStore(appReducer);
-
-export default store;
+export default function configureStore() {
+    const store = createStore(appReducer, applyMiddleware(sagaMiddleware));
+    sagaMiddleware.run(rootSaga);
+    return store
+}

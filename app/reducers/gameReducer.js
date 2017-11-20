@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export default function counter(state = initialState, action = {}) {
-    console.log('Game action:' + action.type);
     switch (action.type) {
         case types.CORRECT:
             return {

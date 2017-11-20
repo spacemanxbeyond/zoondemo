@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux'
-import {Button} from 'react-native-elements';
-import DrawerButton from '../components/DrawerButton'
-import MainNavButton from '../components/MainNavButton'
-
-import {View, Text, StyleSheet} from 'react-native';
-import Images from "../assets/images";
+import {StyleSheet, View} from 'react-native';
+import {connect} from 'react-redux';
+import DrawerButton from '../components/DrawerButton';
+import MainNavButton from '../components/MainNavButton';
 
 class HomeScreen extends Component {
 
@@ -44,19 +41,16 @@ class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: 18
-    },
     container: {
         flex: 1,
         paddingTop: 50,
-        backgroundColor: "#ca98f8",
+        backgroundColor: '#ca98f8',
     },
     buttonContainer: {
         paddingBottom: 10,
-        backgroundColor: "#ca98f8",
+        backgroundColor: '#ca98f8',
     },
-
 });
+
 
 export default connect()(HomeScreen);

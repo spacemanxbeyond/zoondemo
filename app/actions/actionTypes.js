@@ -1,8 +1,9 @@
-export const ON_LOGIN = 'onLogin';
-export const SHOW_BIOLOGY_PROJECTS_ACTION_TYPE = 'showBiologyProjectsScreen';
-export const SHOW_NATURE_PROJECTS_ACTION_TYPE = 'showNatureProjectsScreen';
-export const SHOW_SPACE_PROJECTS_ACTION_TYPE = 'showSpaceProjectsScreen';
+// Remote Types
+export const FETCHING_RANDOM_USERS_DATA = 'FETCHING_RANDOM_USERS_DATA';
+export const FETCHING_RANDOM_USERS_DATA_SUCCESS = 'FETCHING_RANDOM_USERS_DATA_SUCCESS';
+export const FETCHING_RANDOM_USERS_DATA_FAILURE = 'FETCHING_RANDOM_USERS_DATA_FAILURE';
 
+// Game Types
 export const CORRECT = 'CORRECT';
 export const INCORRECT = 'INCORRECT';
 export const RESET_GAME = 'RESET_GAME';

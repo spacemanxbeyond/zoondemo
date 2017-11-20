@@ -1,29 +1,15 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, TouchableHighlight, Image, Linking, StyleSheet} from 'react-native';
+import {Image, Linking, StyleSheet, TouchableHighlight} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {
-    Container,
-    Header,
-    Content,
-    Card,
-    CardItem,
-    Thumbnail,
-    Text,
-    Button,
-    Left,
-    Body,
-    Right
-} from 'native-base';
+import {Body, Button, Card, CardItem, Container, Content, Header, Left, Right, Text, Thumbnail} from 'native-base';
 import Images from '@assets/images';
 import DrawerButton from '../components/DrawerButton';
 
 export default class PlanetsScreen extends Component {
 
     static navigationOptions = ({navigation}) => ({
-
         headerRight: <DrawerButton navigation={navigation}/>,
         title: "Planets",
-
         headerTintColor: 'white',
         headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: 'white'},
         headerStyle: {
@@ -45,7 +31,7 @@ export default class PlanetsScreen extends Component {
     render() {
         return (
             <Container>
-                <Content style={{backgroundColor:'white'}}>
+                <Content style={{backgroundColor: 'white'}}>
                     <TouchableHighlight onPress={() => this.handleClick("https://en.wikipedia.org/wiki/Earth")}
                                         activeOpacity={.5} underlayColor={'white'} style={styles.card}>
                         <Card>

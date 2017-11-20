@@ -1,181 +1,132 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Alert} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import {Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button} from 'native-base';
-import DrawerButton from '../components/DrawerButton';
-import Images from '@assets/images';
+import {
+    Alert, TouchableHighlight,
+    Animated, Dimensions, Image, StyleSheet,
+    Modal, Text, View, Button
+} from 'react-native';
 import {connect} from "react-redux";
+import Icon from 'react-native-vector-icons/FontAwesome'
+import {Card, CardItem, Container, DeckSwiper, Header, Left, Thumbnail} from 'native-base';
+import DrawerButton from '../components/DrawerButton';
+import {gameCards} from '../data/local/gameData'
+import {NavigationActions} from "react-navigation";
 
-// Since we can't dynamically reference image assets through a JSON object. We have to hard our data objects
-// Ideally we can use some REST Api to get our data
-cards = [
-    {
-        text: '1',
-        name: 'Earth',
-        image: Images.earth,
-        isPlanet: true,
-    },
-    {
-        text: '2',
-        name: 'Jupiter',
-        image: Images.jupiter,
-        isPlanet: true,
-    },
-    {
-        text: '3',
-        name: 'Mars',
-        image: Images.mars,
-        isPlanet: true,
-    },
-    {
-        text: '4',
-        name: 'Titan',
-        image: Images.titan,
-        isPlanet: false,
-    },
-    {
-        text: '5',
-        name: 'Moon',
-        image: Images.moon,
-        isPlanet: false,
-    },
-    {
-        text: '6',
-        name: 'Mars',
-        image: Images.mars,
-        isPlanet: true,
-    },
-];
-
-cardIndex = 0;
-correctAnswerCount = 0;
 
 class GameScreen extends Component {
+
+    cardIndex = 0;
 
     constructor(props) {
         super(props);
     }
 
     static navigationOptions = ({navigation}) => ({
-
         headerRight: <DrawerButton navigation={navigation}/>,
         title: "Game",
-
         headerTintColor: 'white',
         headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: 'white'},
         headerStyle: {
             backgroundColor: '#b040ff',
         },
-
     });
-
-    componentWillMount() {
-
-        cards = [
-            {
-                text: '1',
-                name: 'Earth',
-                image: Images.earth,
-                isPlanet: true,
-            },
-            {
-                text: '2',
-                name: 'Jupiter',
-                image: Images.jupiter,
-                isPlanet: true,
-            },
-            {
-                text: '3',
-                name: 'Mars',
-                image: Images.mars,
-                isPlanet: true,
-            },
-            {
-                text: '4',
-                name: 'Titan',
-                image: Images.titan,
-                isPlanet: false,
-            },
-            {
-                text: '5',
-                name: 'Moon',
-                image: Images.moon,
-                isPlanet: false,
-            },
-            {
-                text: '6',
-                name: 'Mars',
-                image: Images.mars,
-                isPlanet: true,
-            },
-        ];
-
-        cardIndex = 0;
-        correctAnswerCount = 0;
-    }
 
     checkForCorrectAnswer(answer) {
 
         const {dispatch, action} = this.props;
 
-        if (answer === "right" && cards[cardIndex].isPlanet) {
-            correctAnswerCount++;
+        if (answer === "right" && gameCards[this.cardIndex].isPlanet) {
             dispatch({type: 'CORRECT'});
-            Alert.alert(
-                'Correct!',
-                cards[cardIndex].name + ' is a planet',
-                [
-                    {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ]
-            )
-        } else if (answer === "left" && !cards[cardIndex].isPlanet) {
+            this.showAnswerAlert('Correct', gameCards[this.cardIndex].name + ' is a planet');
+        } else if (answer === "left" && !gameCards[this.cardIndex].isPlanet) {
             dispatch({type: 'CORRECT'});
-            Alert.alert(
-                'Correct!',
-                cards[cardIndex].name + ' is a moon',
-                [
-                    {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ]
-            )
-        } else if (answer === "left" && cards[cardIndex].isPlanet) {
+            this.showAnswerAlert('Correct', gameCards[this.cardIndex].name + ' is a moon');
+        } else if (answer === "left" && gameCards[this.cardIndex].isPlanet) {
             dispatch({type: 'INCORRECT'});
-            Alert.alert(
-                'Sorry incorrect',
-                cards[cardIndex].name + ' is a planet',
-                [
-                    {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ]
-            )
-        } else if (answer === "right" && !cards[cardIndex].isPlanet) {
+            this.showAnswerAlert('Sorry incorrect', gameCards[this.cardIndex].name + ' is a planet');
+        } else if (answer === "right" && !gameCards[this.cardIndex].isPlanet) {
             dispatch({type: 'INCORRECT'});
-            Alert.alert(
-                'Sorry incorrect',
-                cards[cardIndex].name + ' is a moon',
-                [
-                    {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ]
-            )
+            this.showAnswerAlert('Sorry incorrect', gameCards[this.cardIndex].name + ' is a moon',);
         }
-        console.log("Correct answer so far: " + correctAnswerCount);
-        cardIndex++;
 
-        if (cardIndex > cards.length) {
-            cardIndex = 0;
-            correctAnswerCount = 0;
-        }
+        this.cardIndex++;
+    }
+
+    quitGame() {
+        const {dispatch, action} = this.props;
+        dispatch({type: 'RESET_GAME'});
+        this.gotoHomeScreen();
+
+    }
+
+    playAgain() {
+        const {dispatch, action} = this.props;
+        dispatch({type: 'RESET_GAME'});
+        this.restartGame('Game');
+    }
+
+    gotoHomeScreen = () => {
+        const {dispatch} = this.props.navigation;
+        dispatch(NavigationActions.reset({
+            index: 0,
+            key: null,
+            actions: [NavigationActions.navigate({routeName: 'Home'})]
+        }))
+    };
+
+    restartGame = (screen) => {
+        const {dispatch} = this.props.navigation;
+        const resetAction = NavigationActions.reset({
+            index: 1,
+            actions: [
+                NavigationActions.navigate({routeName: 'Home'}),
+                NavigationActions.navigate({routeName: screen})
+            ]
+        });
+        dispatch(resetAction);
+    };
+
+    showAnswerAlert(messageTitle, messageBody) {
+        Alert.alert(
+            messageTitle,
+            messageBody,
+            [
+                {
+                    text: 'OK', onPress: () => {
+                        if (this.cardIndex >= gameCards.length) {
+                            this.cardIndex = 0;
+                            this.showPlayAgainAlert();
+                        }
+                    }
+                },
+            ]
+        )
+    }
+
+    showPlayAgainAlert() {
+        Alert.alert(
+            'Game Over',
+            'Play again?',
+            [
+                {text: 'NO', onPress: () => this.quitGame()},
+                {text: 'YES!', onPress: () => this.playAgain()},
+            ],
+            {cancelable: false}
+        )
     }
 
     render() {
         const {state, action} = this.props;
         const {correctAnswer, incorrectAnswer} = this.props;
         return (
+
             <Container style={styles.container}>
-                <View>
+
+                <View style={styles.deckSwiperContainer}>
                     <DeckSwiper
                         onSwipeRight={() => this.checkForCorrectAnswer('right')}
                         onSwipeLeft={() => this.checkForCorrectAnswer('left')}
                         looping={false}
-                        dataSource={cards}
+                        dataSource={gameCards}
                         renderItem={item =>
                             <Card style={{elevation: 3}}>
                                 <CardItem style={{justifyContent: 'center'}}>
@@ -187,18 +138,24 @@ class GameScreen extends Component {
                                 <CardItem>
                                     <View style={styles.bottomContainer}>
                                         <Icon style={styles.leftIcon} active name="chevron-circle-left" size={54}
-                                              color={"#615bdd"}/>
+                                              color={"#b040ff"}/>
                                         <Text style={styles.no}>NO</Text>
                                         <View style={styles.middle}><Text style={styles.footer}>SWIPE</Text></View>
                                         <Text style={styles.yes}>YES</Text>
                                         <Icon style={styles.rightIcon} active name="chevron-circle-right" size={54}
-                                              color={"#615bdd"}/>
+                                              color={"#b040ff"}/>
                                     </View>
                                 </CardItem>
                             </Card>
                         }
                     />
                 </View>
+
+                <View style={styles.scoreContainer}>
+                    <Text style={{fontWeight: 'bold', color: '#979797', fontSize: 18}}>Correct
+                        answers: {correctAnswer}/{gameCards.length}</Text>
+                </View>
+
             </Container>
         );
     }
@@ -206,12 +163,15 @@ class GameScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'column',
         flex: 1,
     },
-    scoreContainer: {
-        flexDirection: 'row',
+    deckSwiperContainer: {
         flex: 1,
-        paddingTop: 10,
+        flexGrow: 2,
+    },
+    scoreContainer: {
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -227,36 +187,31 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
     leftIcon: {
         flexGrow: 0,
         paddingLeft: 10,
         paddingRight: 10,
     },
-
     middle: {
         flexGrow: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
-
     yes: {
         flexGrow: 0,
         fontSize: 34,
         color: 'green',
         fontWeight: 'bold',
     },
-
     no: {
         flexGrow: 0,
         fontSize: 34,
         color: 'red',
         fontWeight: 'bold',
     },
-
     footer: {
         fontSize: 34,
-        color: '#c6c1c6',
+        color: '#DDDDDD',
         fontWeight: 'bold',
     },
 

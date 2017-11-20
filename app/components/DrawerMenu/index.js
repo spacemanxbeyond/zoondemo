@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-
-import {View, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import Images from '@assets/images';
+import {Text} from 'react-native';
+import {connect} from "react-redux";
 import {NavigationActions} from 'react-navigation'
-
-import {Drawer, Container, Content, Card, Header, Body, Button, Title, CardItem, Left, Icon} from 'native-base';
+import {Button, Container, Content, Header, Icon} from 'native-base';
 
 class DrawerMenu extends Component {
 
@@ -12,32 +10,29 @@ class DrawerMenu extends Component {
         super(props);
     }
 
-    static navigationOptions = ({navigation}) => ({});
-
     onHomePressed = () => {
-        this.props.navigation.dispatch(NavigationActions.reset({
+        const {dispatch} = this.props.navigation;
+        dispatch(NavigationActions.reset({
             index: 0,
             key: null,
             actions: [NavigationActions.navigate({routeName: 'Home'})]
         }))
     };
 
-    navigateTo = (screen) => {
-
+    //TODO: This a workaround for no replace screen in react native navigation
+    onNavigateTo = (screen) => {
+        const {dispatch} = this.props.navigation;
         const resetAction = NavigationActions.reset({
             index: 1,
             actions: [
-                NavigationActions.navigate({ routeName: 'Home'}),
-                NavigationActions.navigate({ routeName: screen})
+                NavigationActions.navigate({routeName: 'Home'}),
+                NavigationActions.navigate({routeName: screen})
             ]
         });
-        this.props.navigation.dispatch(resetAction);
-
+        dispatch(resetAction);
     };
 
     render() {
-
-        const {navigate} = this.props.navigation;
 
         return (
             <Container style={styles.container}>
@@ -47,11 +42,11 @@ class DrawerMenu extends Component {
                         <Icon name='home' style={styles.icon}/>
                         <Text style={styles.textContent}>Home</Text>
                     </Button>
-                    <Button large transparent iconLeft onPress={() => this.navigateTo('About')}>
+                    <Button large transparent iconLeft onPress={() => this.onNavigateTo('About')}>
                         <Icon name='about' style={styles.icon}/>
                         <Text style={styles.textContent}>About</Text>
                     </Button>
-                    <Button large transparent iconLeft onPress={() => this.navigateTo('Settings')}>
+                    <Button large transparent iconLeft onPress={() => this.onNavigateTo('Settings')}>
                         <Icon name='settings' style={styles.icon}/>
                         <Text style={styles.textContent}>Settings</Text>
                     </Button>
@@ -86,4 +81,8 @@ const styles = {
     }
 };
 
-export default DrawerMenu;
+const mapStateToProps = (state) => ({
+    nav: state.nav,
+});
+
+export default connect(mapStateToProps)(DrawerMenu);

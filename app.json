@@ -1,10 +1,10 @@
 {
   "expo": {
     "name": "zoondemo",
-    "description": "An empty new project",
+    "description": "Zoon demo project",
     "slug": "zoondemo",
-    "privacy": "public",
-    "sdkVersion": "22.0.0",
+    "privacy": "unlisted",
+    "sdkVersion": "23.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",

@@ -2,21 +2,22 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "dependencies": {
-    "expo": "^22.0.0",
+    "expo": "^23.0.0",
     "native-base": "^2.3.3",
-    "react": "16.0.0-beta.5",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.2.tar.gz",
+    "react": "16.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-23.0.0.tar.gz",
     "react-native-animatable": "^1.2.4",
-    "react-native-elements": "^0.18.0",
-    "react-native-sliding-panes": "^1.0.3",
-    "react-native-swipe-gestures": "^1.0.2",
+    "react-native-elements": "^0.18.2",
+    "react-native-fontawesome": "^5.7.0",
     "react-native-vector-icons": "^4.4.2",
     "react-navigation": "^1.0.0-beta.19",
+    "react-navigation-slide-from-right-transition": "^1.0.4",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-saga": "^0.16.0"
   },
   "name": "zoondemo",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Hello Expo!",
-  "author": null
+  "author": "Brian Le"
 }

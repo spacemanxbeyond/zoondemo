@@ -1,0 +1,70 @@
+// General and notification settings json
+[
+  {
+    "GeneralSettings": [
+      {
+        "uid": "generalSetting",
+        "description": "Prompt to see all planet projects workflow",
+        "default": false
+      }
+    ]
+  },
+  {
+    "GeneralNotifications": [
+      {
+        "uid": "generalNotifications",
+        "description": "General planet news notifications",
+        "default": false
+      }
+    ]
+  },
+  {
+    "PlanetNotifications": [
+      {
+        "uid": "earth",
+        "description": "Updates on Earth",
+        "default": false
+      },
+      {
+        "uid": "mars",
+        "description": "Updates on Mars",
+        "default": false
+      },
+      {
+        "uid": "venus",
+        "description": "Updates on Venus",
+        "default": false
+      },
+      {
+        "uid": "jupiter",
+        "description": "Updates on Jupiter",
+        "default": false
+      },
+      {
+        "uid": "mercury",
+        "description": "Updates on Mercury",
+        "default": false
+      },
+      {
+        "uid": "saturn",
+        "description": "Updates on Saturn",
+        "default": false
+      },
+      {
+        "uid": "uranus",
+        "description": "Updates on Uranus",
+        "default": false
+      },
+      {
+        "uid": "neptune",
+        "description": "Updates on Neptune",
+        "default": false
+      },
+      {
+        "uid": "planet9",
+        "description": "Updates on Planet 9?",
+        "default": false
+      }
+    ]
+  }
+]
